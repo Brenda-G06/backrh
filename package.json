@@ -4,16 +4,14 @@
   "dependencies": {
     "axios": "^1.7.7",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mysql2": "^3.11.3",
-    "react-router-dom": "^6.27.0"
+    "mysql2": "^3.11.3"
   },
   "scripts": {
-  "start": "concurrently \"npm run server\" \"npm run client\"",
-  "server": "node index.js",
-  "client": "cd front-end && npm start",
-  "start-server": "npm run server"
-},
+    "start": "npm run server",
+    "server": "node server/server.js"
+  },
   "devDependencies": {
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3"

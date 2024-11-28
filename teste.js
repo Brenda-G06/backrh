@@ -1,4 +1,4 @@
-const readline = require('readline');
+/*const readline = require('readline');
 const mysql = require('mysql2');
 
 // Configuração da conexão com o MySQL
@@ -68,4 +68,4 @@ rl.question("Digite seu nome: ", function(nome) {
             });
         });
     });
-});
+});*/
