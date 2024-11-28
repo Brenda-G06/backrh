@@ -9,10 +9,11 @@
     "react-router-dom": "^6.27.0"
   },
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node index.js",
-    "client": "cd front-end && npm start"
-  },
+  "start": "concurrently \"npm run server\" \"npm run client\"",
+  "server": "node index.js",
+  "client": "cd front-end && npm start",
+  "start-server": "npm run server"
+},
   "devDependencies": {
     "concurrently": "^7.6.0",
     "cross-env": "^7.0.3"
