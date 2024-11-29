@@ -1,40 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
-
 router.post('/', async (req, res) => {
     const { nomeEquipe, lider_id, nomeLider } = req.body;
 
     try {
-        // Verificar se o líder existe na tabela empregados
-        const [lider] = await pool.execute('SELECT id, nome FROM empregados WHERE id = ?', [lider_id]);
+        // Verificar se o líder existe na tabela lider
+        const [lider] = await pool.execute('SELECT nome FROM lider WHERE id = ?', [lider_id]);
         if (lider.length === 0) {
-            return res.status(404).json({ mensagem: 'Líder não encontrado' });
+            return res.status(404).send('Líder não encontrado');
+        } else if (lider[0].nome !== nomeLider) {
+            return res.status(400).send('Nome do líder incorreto');
         }
 
-        // Validar se o nome do líder corresponde ao ID fornecido
-        if (lider[0].nome.toLowerCase() !== nomeLider.toLowerCase()) {
-            return res.status(400).json({ mensagem: 'Nome do líder não corresponde ao ID fornecido' });
-        }
-
-        // Inserir a equipe na tabela equipes
+        // Inserir a equipe com o líder
         const [result] = await pool.execute(
             'INSERT INTO equipes (nomeEquipe, lider_id, nomeLider) VALUES (?, ?, ?)',
             [nomeEquipe, lider_id, nomeLider]
         );
 
-        // Retornar os dados inseridos
-        res.status(201).json({
-            id: result.insertId,
-            nomeEquipe,
-            lider_id,
-            nomeLider
-        });
+        res.status(201).json({ id: result.insertId, nomeEquipe, lider_id, nomeLider });
     } catch (error) {
         console.error('Erro ao criar equipe:', error);
-        res.status(500).json({ mensagem: 'Erro ao criar equipe' });
+        res.status(500).send('Erro ao criar equipe');
     }
 });
+'4rnjr'
 
 
 router.post('/:equipeId/membros', async (req, res) => {
